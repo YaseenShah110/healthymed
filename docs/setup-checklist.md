@@ -90,3 +90,32 @@ and `...\models\partner.py` before reading anything - not guessed.
   (no specific partner) is `1205` / `3301`, read the same way Odoo's own code
   does it: `field.get_company_dependent_fallback(records)` (backed by
   `ir.default`, not the old `ir.property` mechanism).
+
+## Task 4: taxes/payment terms - manual steps and where to check (2026-11-17)
+
+1. **Copy `config\payment_terms.json.example` to `config\payment_terms.json`**
+   and fill in the real terms yourself (name + schedule per entry).
+   `45_payment_terms.py` never invents any; it only fails loudly if the file
+   is missing. `config\payment_terms.json` is gitignored.
+2. `config\accounting.json` now also needs `default_sale_tax` /
+   `default_purchase_tax` (each a dict of `account.tax` field/value pairs that
+   uniquely identify one tax - see the DATEV-code note above for why `amount`
+   alone isn't enough for this chart).
+3. Fiscal positions and bank journals were **reported only, not changed** -
+   see `docs/decisions.md` for the user's confirmation on both.
+4. **Where to see it in the UI:**
+   - Default taxes: Settings → Accounting → (scroll to) Default Taxes, or
+     Accounting → Configuration → Settings.
+   - Payment terms: Accounting → Configuration → Payment Terms.
+   - Journals: Accounting → Configuration → Journals.
+   - The manual invoice check: Accounting → Customer Invoices - any posted
+     invoice with product "TASK4-CHECK Service" (archived after the script
+     runs, so search with the Archived filter on) shows the same untaxed
+     amount / tax / total / accounts the script printed. The script's own
+     test invoice is left **cancelled** (not deletable once posted - see
+     `docs/decisions.md`), so it will show up there too unless filtered out.
+5. **Manual invoice check, by hand:** Accounting → Customer Invoices → New,
+   pick any customer, add a line with a product that has the default 19%
+   sale tax, confirm the invoice shows 19% tax and posts to account `3806`
+   (tax) / the product's income account (defaults to `4400` unless the
+   product category overrides it).
