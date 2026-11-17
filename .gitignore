@@ -1,6 +1,9 @@
 # Local Odoo config (contains credentials) - use odoo.conf.example as template
 odoo.conf
 
+# Client contract text - confidential, kept local-only
+docs/scope.md
+
 # Python
 __pycache__/
 *.py[cod]
