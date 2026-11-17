@@ -113,17 +113,35 @@ if partner_diff:
     changes_summary.append(f"partner fields: {sorted(partner_diff.keys())}")
 
 # --- logo: validate, write only if it differs, skip clearly if missing ---
+# Odoo's own Binary/Image fields accept SVG (see odoo/orm/fields_binary.py -
+# convert_to_column detects it by magic byte and only restricts it to admin users,
+# it doesn't reject it) but PIL cannot open SVG at all, so SVG needs its own check
+# instead of Image.open().verify().
 logo_path = cfg["logo_path"]
 abs_logo_path = os.path.join(repo_root, logo_path) if logo_path else None
 if not logo_path or not os.path.isfile(abs_logo_path):
     print(f"Logo: no file at {logo_path!r}, skipping.")
 else:
-    from PIL import Image
+    from odoo.tools.mimetypes import guess_mimetype
 
-    with Image.open(abs_logo_path) as img:
-        img.verify()
     with open(abs_logo_path, "rb") as f:
-        logo_b64 = base64.b64encode(f.read())
+        logo_bytes = f.read()
+
+    mimetype = guess_mimetype(logo_bytes)
+    if mimetype.startswith("image/svg"):
+        if b"<svg" not in logo_bytes[:2000]:
+            raise RuntimeError(f"logo_path {abs_logo_path!r} looks like SVG but has no <svg> tag.")
+    elif mimetype.startswith("image/"):
+        import io
+
+        from PIL import Image
+
+        with Image.open(io.BytesIO(logo_bytes)) as img:
+            img.verify()
+    else:
+        raise RuntimeError(f"logo_path {abs_logo_path!r} is not a recognized image (mimetype: {mimetype!r}).")
+
+    logo_b64 = base64.b64encode(logo_bytes)
     if company.logo != logo_b64:
         company.logo = logo_b64
         changes_summary.append(f"logo set from {logo_path}")
