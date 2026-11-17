@@ -119,3 +119,40 @@ and `...\models\partner.py` before reading anything - not guessed.
    sale tax, confirm the invoice shows 19% tax and posts to account `3806`
    (tax) / the product's income account (defaults to `4400` unless the
    product category overrides it).
+
+## Task 5: settings/website/mail - read-only inspection (2026-11-17)
+
+`docs\module-map.md` still doesn't exist (Task 0 was never finished) - this
+inspection uses `docs\scope.md` only. Field/group names verified in
+`C:\odoo\odoo19\addons\{product,stock,stock_dropshipping,purchase_stock,
+product_expiry,website}\models\res_config_settings.py` and
+`website\models\website.py`, `odoo\addons\base\models\ir_mail_server.py` -
+not from memory.
+
+**Current `res.config.settings` values that matter here:**
+| Field | Label | Current | Set by |
+|---|---|---|---|
+| `group_product_pricelist` | Pricelists | **False** | nothing yet |
+| `group_stock_production_lot` | Lots & Serial Numbers | **True** | already on, module install side-effect |
+| `module_product_expiry` | Expiration Dates | **True** | `product_expiry` installed in Task 2 |
+| `module_stock_dropshipping` | Dropshipping | **True** | `stock_dropshipping` installed in Task 2 |
+| `module_delivery` | Delivery Methods | **True** | `delivery` installed in Task 2 |
+| `group_stock_multi_locations` | Storage Locations | **False** | nothing yet |
+| `group_stock_adv_location` | Multi-Step Routes | **False** | nothing yet |
+
+Note: there is **no settings field for "multiple warehouses"** at all in
+Odoo 19 core - grepped `stock`'s entire `res_config_settings.py`, no
+`group_stock_multi_warehouses` boolean exists. Creating more than one
+`stock.warehouse` record needs no setting toggle; that's purely Task 6's job.
+`group_stock_multi_locations` ("Storage Locations") is a different thing -
+sub-locations inside a warehouse, not warehouse count.
+
+**Website record (id=1, "My Website"):** `domain`=`False` (unset),
+`default_lang_id`=`en_US`, `language_ids`=`['en_US']` only (German is active
+as an Odoo language since Task 3, but not yet added to this website's
+language list), `auth_signup_uninvited`=`'b2c'` (Free sign up - the two real
+values are `'b2b'` "On invitation" and `'b2c'` "Free sign up"),
+`cookies_bar`=`False`. None of these are touched by this inspection.
+
+**Mail servers:** `ir.mail_server` count = 0, `fetchmail.server` count = 0 -
+nothing configured yet.
