@@ -1,0 +1,14 @@
+[
+  "sale_management",
+  "purchase",
+  "stock",
+  "account",
+  "delivery",
+  "stock_dropshipping",
+  "product_expiry",
+  "website_sale",
+  "crm",
+  "l10n_de",
+  "payment_stripe",
+  "payment_paypal"
+]
