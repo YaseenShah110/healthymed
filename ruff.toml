@@ -7,3 +7,4 @@ select = ["E", "F", "W", "I"]
 [lint.per-file-ignores]
 # "env" is injected as a global by `odoo-bin shell`, not a real import.
 "scripts/bootstrap/*.py" = ["F821"]
+"scripts/checks/*.py" = ["F821"]

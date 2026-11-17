@@ -49,3 +49,44 @@ should not automate.
     (verified against `base`, `account`, `l10n_de` - none add one). It is
     required in the config file for documentation only; `30_company.py`
     never writes it anywhere in Odoo.
+
+## Task 4: what SKR04 created (read-only inspection, 2026-11-17)
+
+Field names verified in `C:\odoo\odoo19\addons\account\models\account_tax.py`
+and `...\models\partner.py` before reading anything - not guessed.
+
+- **Taxes (`account.tax`):** SKR04 ships ~50 sale/purchase taxes across 6 tax
+  groups (`VAT 0%`, `VAT 5,5%`, `VAT 7%`, `VAT 10,7%`, `VAT 19%`, `VAT x%`).
+  Most are inactive by default; only the domestic/EU ones Odoo pre-activates
+  are `active=True` (e.g. `19%`, `7%`, `0%`, `0% EU D`, `19% EU D`, `0% EX`
+  for sale; `19% I`, `7% I`, `19% EU`, `19% EU O S`, `7% EU`, `19% EX` for
+  purchase). `tax_scope` is unset (`False`) on all of them.
+- **Company default taxes:** `res.company.account_sale_tax_id` /
+  `.account_purchase_tax_id` are **already set** by the SKR04 chart load (not
+  by us) to `19%` (sale) and `19% I` (purchase) - i.e. the standard German
+  domestic rate, both ways.
+- **Disambiguating key for Task 4:** `type_tax_use` + `amount` is ambiguous
+  for purchase - there are 4 active taxes at 19% purchase (`19% I`, `19% EU`,
+  `19% EU O S`, `19% EX`). The field that cleanly picks out the domestic one
+  without referencing it by name is `l10n_de_datev_code` (the German DATEV
+  export code): sale `19%` → datev code `3`, purchase `19% I` → datev code
+  `9`. Confirmed unique per code via direct DB query. This is the standard
+  German accounting convention (DATEV codes), not an arbitrary tiebreaker.
+- **Fiscal positions (`account.fiscal.position`):** 6 positions, same as
+  Task 2's summary. Odoo 19 changed how the tax mapping works from older
+  versions: `fiscal_position.tax_ids` (Many2many) lists the *destination*
+  taxes; each destination tax's own `original_tax_ids` field says which
+  tax(es) it replaces. There is no `account.fiscal.position.tax` src/dest
+  line model anymore - only `account.fiscal.position.account` still works
+  that way (`account_src_id` → `account_dest_id`).
+- **Journals (`account.journal`):** Sales (`INV`), Purchases (`BILL`), Bank
+  (`BNK1`), Miscellaneous Operations, Cash Basis Taxes, Exchange Difference,
+  Inventory Valuation (`STJ`). Sales/Purchases/Bank have a
+  `default_account_id`; the rest don't.
+- **Company default accounts:** `income_account_id`=`4400`,
+  `expense_account_id`=`5400` (direct `res.company` fields). Receivable/payable
+  are `res.partner.property_account_receivable_id`/`property_account_payable_id`
+  - company-dependent fields, not plain company fields; their *default* value
+  (no specific partner) is `1205` / `3301`, read the same way Odoo's own code
+  does it: `field.get_company_dependent_fallback(records)` (backed by
+  `ir.default`, not the old `ir.property` mechanism).

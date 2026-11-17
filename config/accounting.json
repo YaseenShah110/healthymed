@@ -1,5 +1,15 @@
 {
   "country_code": "DE",
   "currency_code": "EUR",
-  "chart_template": "de_skr04"
+  "chart_template": "de_skr04",
+  "default_sale_tax": {
+    "type_tax_use": "sale",
+    "amount": 19.0,
+    "l10n_de_datev_code": "3"
+  },
+  "default_purchase_tax": {
+    "type_tax_use": "purchase",
+    "amount": 19.0,
+    "l10n_de_datev_code": "9"
+  }
 }

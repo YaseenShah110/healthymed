@@ -7,6 +7,9 @@ odoo.conf
 # Real company data - use config/company.json.example as template
 config/company.json
 
+# Real payment terms - use config/payment_terms.json.example as template
+config/payment_terms.json
+
 # Private/local-only data
 data_private/
 
