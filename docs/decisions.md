@@ -11,6 +11,8 @@
 | 2026-11-17 | No bank account / IBAN in `config/company.json` or `30_company.py`. | User confirmed it is out of scope for this task. |
 | 2026-11-17 | Document layout kept as the DIN 5008 Type B default Odoo already auto-selected when `l10n_de`/`l10n_din5008` were installed - no setting change applied. | User confirmed this matches the senior's system: layout `l10n_din5008.external_layout_din5008`, paper format "European A4 for DIN5008 Type B" (A4 portrait, margins 45/40/20/10mm), font Lato, background Blank. |
 | 2026-11-17 | Language activation uses Odoo's own `base.language.install` wizard (`lang_install()`), which also loads translations for every installed module via `ir.module.module._update_translations`. | Found in `C:\odoo\odoo19\odoo\addons\base\wizard\base_language_install.py` - this is the same method the Settings UI uses, not a hand-rolled translation loader. |
+| 2026-11-17 | `config/company.json` real values (name, address, VAT, language, timezone) came from the user, who read them read-only off staging's `res.company`/admin user and explicitly confirmed each one for use here. `email`, `phone`, `website`, `street2`, `state_id`, `company_registry` are genuinely blank on staging, not omitted. | Matches the standing rule: never invent or copy values without the user's confirmation. User supplied and confirmed; not copied unilaterally. |
+| 2026-11-17 | Logo skipped for now (`logo_path` left empty in `config/company.json`). | Staging has a logo set, but user chose "skip for now" rather than fetch it immediately. `30_company.py` already handles a missing logo cleanly (prints and skips, does not fail). Add later by placing a file under `data_private\` and setting `logo_path`. |
 
 ## Open question (Task 3)
 
