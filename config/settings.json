@@ -1,0 +1,3 @@
+[
+  {"model": "res.config.settings", "field": "group_product_pricelist", "value": true}
+]

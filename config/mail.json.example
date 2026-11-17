@@ -1,0 +1,8 @@
+{
+  "key": "local-mailpit",
+  "name": "Mailpit (local, no credentials)",
+  "smtp_host": "localhost",
+  "smtp_port": 1025,
+  "smtp_encryption": "none",
+  "from_filter": ""
+}

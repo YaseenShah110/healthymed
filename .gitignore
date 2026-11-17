@@ -10,6 +10,10 @@ config/company.json
 # Real payment terms - use config/payment_terms.json.example as template
 config/payment_terms.json
 
+# Real website/mail config - use the matching .example files as templates
+config/website.json
+config/mail.json
+
 # Private/local-only data
 data_private/
 

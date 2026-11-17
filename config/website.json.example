@@ -1,0 +1,6 @@
+{
+  "name": "Example Shop",
+  "default_language_code": "de_DE",
+  "extra_language_codes": [],
+  "auth_signup_uninvited": "b2b"
+}
