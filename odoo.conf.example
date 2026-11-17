@@ -1,0 +1,15 @@
+[options]
+db_host = localhost
+db_port = 5432
+db_user = your_db_user
+db_password = your_db_password
+db_name = healthymed
+addons_path = C:\odoo\odoo19\addons,C:\path\to\healthymed
+
+http_port = 8071
+admin_passwd = change_me
+
+bin_path = C:\Program Files\wkhtmltopdf\bin
+limit_time_real = 0
+limit_memory_soft = 2147483648
+limit_time_cpu = 0
