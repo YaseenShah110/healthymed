@@ -156,3 +156,47 @@ values are `'b2b'` "On invitation" and `'b2c'` "Free sign up"),
 
 **Mail servers:** `ir.mail_server` count = 0, `fetchmail.server` count = 0 -
 nothing configured yet.
+
+## Task 6: warehouses - read-only inspection (2026-11-17)
+
+Field names verified in `C:\odoo\odoo19\addons\stock\models\stock_warehouse.py`
+and `stock_dropshipping\models\res_company.py` - not from memory.
+
+**Current warehouses:** only **one** exists.
+| Field | Value |
+|---|---|
+| `name` | "My Company" (Odoo's installer default - not yet renamed) |
+| `code` | `WH` |
+| `company_id` | HealthyMed |
+| `reception_steps` | `one_step` |
+| `delivery_steps` | `ship_only` |
+| `active` | True |
+| `view_location_id` | "WH" (usage=`view`) |
+| `lot_stock_id` | "WH/Stock" (usage=`internal`) |
+
+This is also the **default** warehouse (the only one, first by sequence).
+`code` is `Char(size=5)` - **max 5 characters**, so both new warehouse codes
+must fit that limit.
+
+**Locations under it:** just `WH` (view) and `WH/Stock` (internal) - the
+plain 1-step setup, nothing else.
+
+**Operation types:** `Receipts` (incoming, Vendors → WH/Stock), `Delivery
+Orders` (outgoing, WH/Stock → Customers), both tied to this warehouse; and
+`Dropship` (code=`dropship`, **`warehouse_id` is empty/False** - not tied to
+any warehouse at all, Vendors → Customers).
+
+**Routes:** `Buy` (warehouse-scoped to "My Company"), `Dropship`
+(`company_id` empty - shared across all companies, `warehouse_ids` empty -
+not tied to any warehouse), plus the two auto-generated 1-step routes for
+this warehouse's own receive/deliver.
+
+**Dropship mechanism (verified in `stock_dropshipping/models/res_company.py`,
+`_create_dropship_picking_type`/`_create_dropship_rule`):** created **once
+per company**, not per warehouse. The picking type is created with
+`'warehouse_id': False` explicitly. The rule uses only the virtual
+`stock.stock_location_suppliers`/`stock.stock_location_customers` locations
+- never a warehouse-specific location. **Conclusion: the supplier-handling
+warehouse needs nothing special for dropshipping to work; the route is
+warehouse-agnostic by design.** Not an open question - this is settled from
+core source, not a guess.
