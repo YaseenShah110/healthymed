@@ -4,6 +4,9 @@ odoo.conf
 # Local tooling env (real paths) - use .env.example as template
 .env
 
+# Real company data - use config/company.json.example as template
+config/company.json
+
 # Private/local-only data
 data_private/
 

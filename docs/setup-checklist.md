@@ -26,3 +26,26 @@ should not automate.
    shell` and the HTTP server can both reach the DB, but installing modules
    while the web server also holds the old registry in memory is avoidable
    risk, not a hard requirement.
+8. **Copy `config\company.json.example` to `config\company.json`** and fill
+   in the real company data yourself - the bootstrap script (`30_company.py`)
+   never invents or copies values from other documents; it only fails loudly
+   if a required key is missing. `config\company.json` is gitignored.
+9. If a real logo file is available, put it under `data_private\` (gitignored)
+   and point `logo_path` at it (relative to the repo root). If there is no
+   logo file yet, leave `logo_path` empty/missing - `30_company.py` skips the
+   logo and says so, it does not fail.
+10. **Document layout confirmed (2026-11-17):** keep the layout Odoo already
+    auto-selected when `l10n_de`/`l10n_din5008` were installed - no setting
+    change needed. Settings → General Settings → Companies → (company) →
+    Configure Document Layout:
+    - Layout: `l10n_din5008.external_layout_din5008` (DIN 5008 Type B)
+    - Paper format: "European A4 for DIN5008 Type B" - A4 portrait, margins
+      top 45mm / bottom 40mm / left 20mm / right 10mm
+    - Font: Lato
+    - Background: Blank
+    This was a deliberate confirmation, not an unexamined default - recorded
+    here so nobody "fixes" it later by accident.
+11. `legal_name` in `config\company.json` has no corresponding Odoo 19 field
+    (verified against `base`, `account`, `l10n_de` - none add one). It is
+    required in the config file for documentation only; `30_company.py`
+    never writes it anywhere in Odoo.

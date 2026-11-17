@@ -1,0 +1,19 @@
+{
+  "name": "Example Company GmbH",
+  "legal_name": "Example Company GmbH",
+  "street": "Example Street 1",
+  "street2": "",
+  "zip": "12345",
+  "city": "Example City",
+  "country_code": "DE",
+  "state_code": "",
+  "currency_code": "EUR",
+  "vat": "DE000000000",
+  "email": "info@example.com",
+  "phone": "+49 00 0000000",
+  "website": "https://example.com",
+  "default_language_code": "de_DE",
+  "timezone": "Europe/Berlin",
+  "logo_path": "data_private/logo.png",
+  "company_registry": ""
+}
