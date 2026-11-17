@@ -20,14 +20,17 @@
 | 2026-11-17 | Default taxes (`19%` sale / `19% I` purchase, DATEV `3`/`9`) confirmed correct by the user from staging's live `account_sale_tax_id`/`account_purchase_tax_id` - no correction needed, `40_taxes.py` reports "no changes" since the SKR04 load had already set them. | Same standing rule: user confirmed from staging read-only, not invented. |
 | 2026-11-17 | Payment terms: the 10 real terms from staging (listed in full in `config/payment_terms.json`, gitignored) are Odoo's own stock demo terms, none customized for HealthyMed. There is **no "14 Days" term** - the example key in `payment_terms.json.example` was illustrative only; real terms use `15 Days`/`21 Days` instead. | User provided the exact list read-only from staging and explicitly flagged the "14 Days" mismatch rather than letting it be assumed. |
 | 2026-11-17 | `45_payment_terms.py` matches `account.payment.term.line.days_next_month` against Odoo's own field default (`'10'`), not against `False`, when a line's JSON doesn't specify that key. | Found a real idempotency bug: that field defaults to `'10'` on every line regardless of `delay_type` (it's only hidden in the UI for other delay types, not actually blank in the DB). Comparing against `False` made every line without an explicit `days_next_month` look "changed" on every run. Fixed, then verified two consecutive runs both report "no changes" for all 10 terms. |
+| 2026-11-17 | Task 5 settings: only `group_product_pricelist` turned on. Everything else proposed as "already on" or "not needed" in the Step 2 proposal was approved as-is, with no corrections. | User cross-checked the proposal against `scope.md` and approved it verbatim. |
+| 2026-11-17 | Website (`config/website.json`): `name`="HealthyMed", `default_language_code`="de_DE", `extra_language_codes`=[] (German only, not English+German), `auth_signup_uninvited`="b2c" (unchanged - already matched staging). | Values confirmed by the user read-only from staging's `website.website`/`account.journal`, same standing rule as Task 3/4. |
+| 2026-11-17 | Fiscal positions and bank journal (Task 4 decisions) reconfirmed closed, not reopened for Task 5. Staging's bank journal detail (account `2475 Bank`, IBAN present) recorded here for reference only, not applied anywhere. | User explicitly re-checked `docs/decisions.md` rows 16-17 before answering Task 5's website questions, to avoid re-asking a settled question. |
 
-## Open question (Task 3)
+## Resolved (was "Open question (Task 3)")
 
-Inspecting `website.website` via `odoo-bin shell` raised `KeyError` even
-though the `website` module is installed and the `website` Postgres table has
-a row (`id=1, name='My Website'`). Not blocking (favicon is not a Task 3
-config key), but worth someone checking if it ever matters - might be a
-registry quirk specific to the `--no-http` shell session.
+Inspecting `website.website` via `odoo-bin shell` raised `KeyError`. Cause
+found during Task 5: the actual model name is just `website`, not
+`website.website` - own mistake in the Task 3 inspection script, not an
+Odoo registry quirk. Confirmed in Task 5: `env["website"].search([])` works
+fine and returns the real website record.
 
 ## Notes on Task 2 scope
 
