@@ -1,6 +1,12 @@
 # Local Odoo config (contains credentials) - use odoo.conf.example as template
 odoo.conf
 
+# Local tooling env (real paths) - use .env.example as template
+.env
+
+# Private/local-only data
+data_private/
+
 # Python
 __pycache__/
 *.py[cod]
@@ -12,6 +18,14 @@ venv/
 *.log
 .filestore/
 .sessions/
+
+# Lint cache
+.ruff_cache/
+
+# CSV data, except module data/security fixtures
+*.csv
+!**/data/*.csv
+!**/security/*.csv
 
 # Editor/OS
 .vscode/
