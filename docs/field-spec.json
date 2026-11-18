@@ -301,9 +301,18 @@
     "label_de": "SSB-Rezeptstatus",
     "relation": null,
     "selection": [
-      {"value": "not_required", "label_de": "Nicht erforderlich"},
-      {"value": "waiting", "label_de": "Warte auf Rezept"},
-      {"value": "received", "label_de": "Rezept eingegangen"}
+      {
+        "value": "not_required",
+        "label_de": "Nicht erforderlich"
+      },
+      {
+        "value": "waiting",
+        "label_de": "Warte auf Rezept"
+      },
+      {
+        "value": "received",
+        "label_de": "Rezept eingegangen"
+      }
     ],
     "required": false,
     "readonly": false,
@@ -336,8 +345,8 @@
     "required": null,
     "readonly": null,
     "size": null,
-    "computed_or_related": "Field list never provided to this session beyond the module name and its build-order position (depends healthymed_base, purchase). Decisions.md records that it may match by x_pzn (lives in healthymed_ssb) via a runtime check, not a hard dependency.",
-    "status": "pending"
+    "computed_or_related": "Deferred by team decision (2026-11-18, Task 11) - skipped entirely, not just unspecified. Products come only from a sample export of the senior's system; no supplier import is built. The module's three custom models (healthymed.megro.feed, .feed.column, .import.log) and \"the four product fields\" are named in task briefs but their real field names/types/labels were never specified to this session - not guessed.",
+    "status": "deferred"
   },
   {
     "module": "healthymed_pricing",
@@ -477,6 +486,62 @@
     "readonly": null,
     "size": null,
     "computed_or_related": "Brief mentions 'the two order config models' with no names, fields or purpose given. Not guessed. Open question in docs/decisions.md.",
+    "status": "deferred"
+  },
+  {
+    "module": "healthymed_megro_import",
+    "model": "healthymed.megro.feed",
+    "field": null,
+    "type": null,
+    "label_de": null,
+    "relation": null,
+    "selection": null,
+    "required": null,
+    "readonly": null,
+    "size": null,
+    "computed_or_related": "Named in Task 11's brief as one of three custom models this module would have added. No field list, purpose detail or relations ever specified to this session - not guessed.",
+    "status": "deferred"
+  },
+  {
+    "module": "healthymed_megro_import",
+    "model": "healthymed.megro.feed.column",
+    "field": null,
+    "type": null,
+    "label_de": null,
+    "relation": null,
+    "selection": null,
+    "required": null,
+    "readonly": null,
+    "size": null,
+    "computed_or_related": "Named in Task 11's brief as one of three custom models this module would have added. No field list, purpose detail or relations ever specified to this session - not guessed.",
+    "status": "deferred"
+  },
+  {
+    "module": "healthymed_megro_import",
+    "model": "healthymed.megro.import.log",
+    "field": null,
+    "type": null,
+    "label_de": null,
+    "relation": null,
+    "selection": null,
+    "required": null,
+    "readonly": null,
+    "size": null,
+    "computed_or_related": "Named in Task 11's brief as one of three custom models this module would have added. No field list, purpose detail or relations ever specified to this session - not guessed.",
+    "status": "deferred"
+  },
+  {
+    "module": "healthymed_megro_import",
+    "model": "product.template (assumed)",
+    "field": "unknown - \"the four product fields\" referenced but never named",
+    "type": null,
+    "label_de": null,
+    "relation": null,
+    "selection": null,
+    "required": null,
+    "readonly": null,
+    "size": null,
+    "computed_or_related": "Task 11's brief says 'product export excludes the four MeGro columns' and refers to 'the four product fields' as if already specified, but no field names were ever given to this session. Not guessed - open question recorded in docs/decisions.md.",
     "status": "deferred"
   }
 ]
