@@ -272,3 +272,41 @@ core source, not a guess.
    that order is **not** auto-released - use the "SSB: Recover after gate
    deactivation" action (Sales orders list or form, Action menu) on it
    deliberately.
+
+## Task 10: healthymed_base + healthymed_chargen - where to see it, manual check (2026-11-18)
+
+1. **Where to see each field:**
+   - Product form → new "HealthyMed" notebook page → EAN, Magento ID,
+     Manufacturer, Packaging Unit, Quantity Unit.
+   - Contact form → Sales & Purchase page → "Sales" group (next to the
+     salesperson field) → "Regional Customer (Self-Delivery)" checkbox.
+   - Sales order form → next to the delivery address field → "Regional
+     Self-Delivery Order" (read-only, follows the customer's flag).
+   - Company form (Settings → Users & Companies → Companies) → new
+     "HealthyMed" page → the two warehouse fields (not yet assigned to
+     real warehouses - Task 6 never finished, see `docs/decisions.md`).
+   - Lot tracking itself: Inventory → Products → a product → Inventory
+     tab → Tracking = "By Lots"; Expiration Dates tab (needs the
+     "Expiration Dates" feature, already on) → Shelf Life / Best Before
+     / Removal / Alert Time.
+2. **3-minute manual check (do this yourself):**
+   - Pick (or create) a test product, set Tracking = "By Lots" and turn on
+     its expiration date fields (a few days' shelf life is enough to see
+     a real date).
+   - Receive it into stock with a lot number and an expiry date (Inventory
+     → Receipts → New, or adjust on-hand quantity with a lot).
+   - Deliver it to a test customer (Sales → New order → confirm → go to
+     the delivery → validate, picking/confirming the lot).
+   - Print the delivery slip (Delivery → Print) and confirm the lot
+     number (and expiry date, if your layout shows it) appears.
+   - **Who needs to see it:** the lot number column on the slip needs
+     `stock.group_lot_on_delivery_slip`; the expiry-date column
+     additionally needs `product_expiry.group_expiry_date_on_delivery_slip`
+     (currently off for everyone - nobody will see dates on the printed
+     slip until this is turned on for a role). Both are already implied
+     by the "Lager und Versand" role from Task 8 for the lot column; the
+     expiry-date column isn't on for any role yet.
+3. **`healthymed_chargen` needed nothing but its manifest** - standard
+   Odoo (`product.template.tracking` + `product_expiry`) already covers
+   everything scope 3.3 asks for. No fields, views or settings were added
+   by this module.

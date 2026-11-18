@@ -106,3 +106,20 @@ standing rule as every prior task - nothing was written to staging.
 
 - This task's own brief states `healthymed_base, healthymed_rollen, healthymed_ssb` are "already installed" - only two of the three actually are (see the correction rows above).
 - This task's own brief's `healthymed_theme` dependency list (`healthymed_base, healthymed_ssb, healthymed_shop, website_sale`) does not match that module's real, already-built `__manifest__.py` (`website, website_sale` only).
+
+## Task 10: healthymed_chargen (+ finally building healthymed_base)
+
+| Date | Decision | Why |
+|---|---|---|
+| 2026-11-18 | No category-level tracking work needed - approved as proposed. Standard Odoo has no category-level tracking concept at all; tracking is strictly per-product (`product.template.tracking`). | User approved; "track by lot per product category" can only ever mean "set tracking on each product in that category," which is data, not module code. |
+| 2026-11-18 | Nothing missing from standard Odoo for scope 3.3's batch/best-before requirement - approved as proposed. | `product_expiry` already provides every field the scope asks for (`use_expiration_date`, `expiration_time`, `use_time`, `removal_time`, `alert_time` on products; `expiration_date`, `use_date`, `removal_date`, `alert_date`, `product_expiry_alert` on lots), verified in core, not memory. |
+| 2026-11-18 | No sample product gets tracking forced on in this module - approved as proposed. | That's Task 18's job (sample loader from its own config file), not this module's. |
+| 2026-11-18 | `healthymed_chargen` built as a manifest-only module: `__init__.py` + `__manifest__.py` only, depends on `healthymed_base` + `product_expiry`. No models, views, security CSV, i18n, README or tests folder. | Matches the approved "smallest possible module" proposal exactly - there was genuinely nothing to add. |
+| 2026-11-18 | **`healthymed_base` (Task 7) finally built**, unblocking `healthymed_chargen`'s hard dependency. Resolved its two outstanding questions: `x_is_regional_order` relates to `partner_id.x_is_regional` (not `partner_shipping_id`); `x_ean`/`x_magento_id` stay plain fields, no `copy=False`/index added. | User explicitly chose to resolve these now rather than leave `healthymed_chargen` uninstallable. |
+| 2026-11-18 | No `ir.cron` exists anywhere in `product_expiry` for expiry alerts - `product_expiry_alert` is a plain computed field (`expiration_date <= now()`), checked only when displayed, not scheduled. | Verified in core (`production_lot.py`) before answering step 2's inspection question - the brief asked about "alerts... and cron" and the honest answer is there is no cron. |
+| 2026-11-18 | Delivery-slip gating confirmed from core: the lot/serial column itself is `stock.group_lot_on_delivery_slip` (core `stock`); the extra Expiration Date column is additionally gated by `product_expiry.group_expiry_date_on_delivery_slip` (currently off for everyone - nothing sets it). | `stock/report/report_deliveryslip.xml` + `product_expiry/report/report_deliveryslip.xml`, read directly. |
+| 2026-11-18 | Temporary proof script (`scratch/chargen_proof.py`) used real stock moves (a receipt + a delivery), not a `stock.quant` injection, to prove lot+expiry survive an actual move line, then was rolled back and deleted. `scratch/` added to `.gitignore` as a reusable convention for this kind of throwaway proof. | Matches the task's explicit ask ("the move line used," not just a quant). |
+
+### Open questions (carried over, with the Task 8 mapping now resolvable)
+
+The senior's system's group IDs 23/24/27/29/36/37/40/42/50/54 (from `rollen-groups.md`) were never resolved to names directly - but `healthymed_rollen` (Task 8) already maps the ones this project actually uses: `stock.group_production_lot` (likely id 40) and `stock.group_lot_on_delivery_slip` (likely id 42), per `rollen-groups.md`'s own guess. Not re-confirmed against the senior's system numerically - only functionally, via the roles built in Task 8.

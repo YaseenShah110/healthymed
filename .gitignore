@@ -17,6 +17,9 @@ config/mail.json
 # Private/local-only data
 data_private/
 
+# Temporary proof scripts (never committed, deleted after use)
+scratch/
+
 # Python
 __pycache__/
 *.py[cod]
