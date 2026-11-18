@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Anchors verified in C:\odoo\odoo19\addons\product\views\product_views.xml:
-    - product.product_template_form_view: field "default_code" is added to the
-      General Information page by product.product_template_only_form_view
-      (priority 8, loads before this module), so it's present in the resolved
-      arch by the time this view applies.
-    - product.product_template_search_view: filter "filter_to_sell".
+  Anchor verified in C:\odoo\odoo19\addons\product\views\product_views.xml:
+  product.product_template_form_view, General Information page,
+  group[@name='group_general'] (field "type" is the first field in it).
+  "default_code" is NOT usable as an anchor here - it's only added inside
+  product.product_template_only_form_view, a mode="primary" view, which does
+  not feed into the extension chain other modules' views attach to (confirmed
+  the hard way: Odoo refused to load this view with that anchor).
 -->
 <odoo>
     <data>
@@ -15,7 +16,7 @@
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='default_code']" position="after">
+                <xpath expr="//group[@name='group_general']/field[@name='type']" position="after">
                     <field name="x_is_ssb"/>
                     <field name="x_pzn"/>
                 </xpath>
