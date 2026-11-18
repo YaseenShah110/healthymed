@@ -233,3 +233,42 @@ core source, not a guess.
    → Groups there to confirm or correct, then edit
    `addons\healthymed_rollen\security\healthymed_rollen_groups.xml`
    (one `implied_ids` list per role) if anything needs to change.
+
+## Task 9: healthymed_ssb - where to see it, manual check (2026-11-18)
+
+1. **Where to see each field:**
+   - Product form (any product) → General Information page → "Consultation
+     Supply (SSB)" checkbox and "PZN" field, right after the Type field.
+   - Products search → filter dropdown → "SSB".
+   - Contact form (any partner) → Sales & Purchase page → new "SSB" group
+     → Practice No. and KV Number.
+   - Settings → Sales → new "Sprechstundenbedarf (SSB)" block → the gate
+     toggle.
+   - Sales order form → near the customer fields → "Contains SSB Items"
+     and the SSB status (only shown once the order has an SSB item); a
+     separate "SSB Prescription" group (file upload, confirmed-by,
+     received-on) appears once `x_has_ssb` is true; the header gets a
+     "Confirm prescription received" button once the order is `waiting`
+     (visible only to `healthymed_ssb.group_ssb_prescription_officer`).
+   - Sales orders list view → optional column "Contains SSB Items"
+     (hidden by default - enable via the column-picker icon).
+2. **Who can confirm receipt:** add a user to the
+   `healthymed_ssb.group_ssb_prescription_officer` group (Settings →
+   Users, under its own "HealthyMed SSB" / "SSB-Rezept-Gate" section) -
+   it's a dedicated group, not a standard Odoo one (see `docs/decisions.md`
+   for why).
+3. **3-minute manual check:**
+   - Flag any product as SSB (tick the checkbox on its form).
+   - Settings → Sales → turn the SSB gate **on**.
+   - Create a sales order for a customer with practice data, add the SSB
+     product, confirm the order - it should show "Contains SSB Items" and
+     status "Warte auf Rezept" (waiting).
+   - Try to validate its delivery (Inventory) - it should be **blocked**
+     with a message naming the order.
+   - Back on the order, click "Confirm prescription received" (you'll
+     need the officer group for this button to be visible/usable).
+   - Validate the delivery again - it should now **succeed**.
+4. **If you turn the gate off later** while an order is still "waiting",
+   that order is **not** auto-released - use the "SSB: Recover after gate
+   deactivation" action (Sales orders list or form, Action menu) on it
+   deliberately.

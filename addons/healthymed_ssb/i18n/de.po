@@ -86,17 +86,17 @@ msgid "SSB Prescription Status"
 msgstr "SSB-Rezeptstatus"
 
 #. module: healthymed_ssb
-#: selection:sale.order,x_ssb_prescription_state:not_required
+#: model:ir.model.fields.selection,name:healthymed_ssb.selection__sale_order__x_ssb_prescription_state__not_required
 msgid "Not required"
 msgstr "Nicht erforderlich"
 
 #. module: healthymed_ssb
-#: selection:sale.order,x_ssb_prescription_state:waiting
+#: model:ir.model.fields.selection,name:healthymed_ssb.selection__sale_order__x_ssb_prescription_state__waiting
 msgid "Waiting for prescription"
 msgstr "Warte auf Rezept"
 
 #. module: healthymed_ssb
-#: selection:sale.order,x_ssb_prescription_state:received
+#: model:ir.model.fields.selection,name:healthymed_ssb.selection__sale_order__x_ssb_prescription_state__received
 msgid "Prescription received"
 msgstr "Rezept eingegangen"
 
