@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Pattern verified against Odoo 19 core, not guessed:
+    - category:  odoo/addons/base/security/base_groups.xml
+    - privilege: addons/sales_team/security/sales_team_security.xml
+    - groups:    addons/stock/security/stock_security.xml,
+                 addons/purchase/security/purchase_security.xml,
+                 addons/account/security/account_security.xml,
+                 addons/website/security/website_security.xml
+
+  Mapping decisions below (Sales: User level, Website editor level, which
+  Accounting groups) are OPEN - the user has not yet confirmed them against
+  the senior's system (Settings > Technical > Groups). See docs/decisions.md.
+
+  Each role's implied_ids list is the one place to change its standard
+  groups - nothing else in this module references a group directly.
+-->
+<odoo>
+    <data>
+
+        <record model="ir.module.category" id="module_category_healthymed">
+            <field name="name">HealthyMed</field>
+        </record>
+
+        <record model="res.groups.privilege" id="privilege_healthymed_rolle">
+            <field name="name">HealthyMed-Rolle</field>
+            <field name="category_id" ref="module_category_healthymed"/>
+        </record>
+
+        <!-- Innendienst: Sales: User (All Documents) + Inventory: User -->
+        <record id="group_innendienst" model="res.groups">
+            <field name="name">Innendienst</field>
+            <field name="privilege_id" ref="privilege_healthymed_rolle"/>
+            <field name="implied_ids" eval="[
+                (4, ref('sales_team.group_sale_salesman_all_leads')),
+                (4, ref('stock.group_stock_user')),
+            ]"/>
+        </record>
+
+        <!-- Lager und Versand: Inventory: User + manage lots/serials + show lot on delivery slip -->
+        <record id="group_lager_und_versand" model="res.groups">
+            <field name="name">Lager und Versand</field>
+            <field name="privilege_id" ref="privilege_healthymed_rolle"/>
+            <field name="implied_ids" eval="[
+                (4, ref('stock.group_stock_user')),
+                (4, ref('stock.group_production_lot')),
+                (4, ref('stock.group_lot_on_delivery_slip')),
+            ]"/>
+        </record>
+
+        <!-- Buchhaltung: Sales: User (All Documents) + Accounting/Invoicing -->
+        <record id="group_buchhaltung" model="res.groups">
+            <field name="name">Buchhaltung</field>
+            <field name="privilege_id" ref="privilege_healthymed_rolle"/>
+            <field name="implied_ids" eval="[
+                (4, ref('sales_team.group_sale_salesman_all_leads')),
+                (4, ref('account.group_account_invoice')),
+            ]"/>
+        </record>
+
+        <!-- Geschaeftsfuehrung: everything in the three roles above (reached by implying
+             the role groups themselves, not re-listed here) plus Sales: Administrator,
+             Purchase: User, Website: Restricted Editor, and full Accounting. -->
+        <record id="group_geschaeftsfuehrung" model="res.groups">
+            <field name="name">Geschäftsführung</field>
+            <field name="privilege_id" ref="privilege_healthymed_rolle"/>
+            <field name="implied_ids" eval="[
+                (4, ref('group_innendienst')),
+                (4, ref('group_lager_und_versand')),
+                (4, ref('group_buchhaltung')),
+                (4, ref('sales_team.group_sale_manager')),
+                (4, ref('purchase.group_purchase_user')),
+                (4, ref('website.group_website_restricted_editor')),
+                (4, ref('account.group_account_user')),
+            ]"/>
+        </record>
+
+    </data>
+</odoo>

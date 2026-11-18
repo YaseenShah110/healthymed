@@ -1,0 +1,41 @@
+# Translation of healthymed_rollen
+# The German names are the real role names (from docs/rollen-groups.md), so
+# source and target are the same string - this still matters: res.groups.name,
+# res.groups.privilege.name and ir.module.category.name are all translate=True,
+# so without this file they'd show untranslated/blank for a non-German session
+# and the explicit translation record wouldn't exist for German sessions either.
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: de\n"
+
+#. module: healthymed_rollen
+#: model:ir.module.category,name:healthymed_rollen.module_category_healthymed
+msgid "HealthyMed"
+msgstr "HealthyMed"
+
+#. module: healthymed_rollen
+#: model:res.groups.privilege,name:healthymed_rollen.privilege_healthymed_rolle
+msgid "HealthyMed-Rolle"
+msgstr "HealthyMed-Rolle"
+
+#. module: healthymed_rollen
+#: model:res.groups,name:healthymed_rollen.group_innendienst
+msgid "Innendienst"
+msgstr "Innendienst"
+
+#. module: healthymed_rollen
+#: model:res.groups,name:healthymed_rollen.group_lager_und_versand
+msgid "Lager und Versand"
+msgstr "Lager und Versand"
+
+#. module: healthymed_rollen
+#: model:res.groups,name:healthymed_rollen.group_buchhaltung
+msgid "Buchhaltung"
+msgstr "Buchhaltung"
+
+#. module: healthymed_rollen
+#: model:res.groups,name:healthymed_rollen.group_geschaeftsfuehrung
+msgid "Geschäftsführung"
+msgstr "Geschäftsführung"
