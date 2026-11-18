@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Anchors verified in C:\odoo\odoo19\addons\sale\views\sale_order_views.xml:
+    - sale.view_order_form: field "partner_shipping_id" (group "partner_details"),
+      button id="action_confirm" in the <header>.
+    - sale.sale_order_tree: field "partner_id".
+-->
+<odoo>
+    <data>
+
+        <record id="view_order_form_ssb" model="ir.ui.view">
+            <field name="name">sale.order.form.healthymed.ssb</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@id='action_confirm']" position="after">
+                    <button string="Confirm prescription received"
+                            name="action_ssb_prescription_received"
+                            type="object"
+                            class="btn-primary"
+                            invisible="x_ssb_prescription_state != 'waiting'"
+                            groups="healthymed_ssb.group_ssb_prescription_officer"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                    <field name="x_has_ssb"/>
+                    <field name="x_ssb_prescription_state" invisible="not x_has_ssb"/>
+                </xpath>
+                <xpath expr="//group[@name='order_details']" position="after">
+                    <group name="healthymed_ssb_group" string="SSB Prescription" invisible="not x_has_ssb">
+                        <field name="x_ssb_prescription_file" filename="x_ssb_prescription_filename"/>
+                        <field name="x_ssb_prescription_filename" invisible="1"/>
+                        <field name="x_ssb_prescription_received_by" readonly="1"/>
+                        <field name="x_ssb_prescription_received_date" readonly="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_order_tree_ssb" model="ir.ui.view">
+            <field name="name">sale.order.list.healthymed.ssb</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="x_has_ssb" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -8,3 +8,6 @@ select = ["E", "F", "W", "I"]
 # "env" is injected as a global by `odoo-bin shell`, not a real import.
 "scripts/bootstrap/*.py" = ["F821"]
 "scripts/checks/*.py" = ["F821"]
+# Odoo's own convention: __init__.py files only re-export submodules for
+# module registration; the imports are never otherwise referenced.
+"**/__init__.py" = ["F401", "I001"]

@@ -1,0 +1,131 @@
+# Translation of healthymed_ssb
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: de\n"
+
+#. module: healthymed_ssb
+#: model:ir.module.category,name:healthymed_ssb.module_category_healthymed_ssb
+msgid "HealthyMed SSB"
+msgstr "HealthyMed SSB"
+
+#. module: healthymed_ssb
+#: model:res.groups.privilege,name:healthymed_ssb.privilege_ssb_rezept_gate
+msgid "SSB-Rezept-Gate"
+msgstr "SSB-Rezept-Gate"
+
+#. module: healthymed_ssb
+#: model:res.groups,name:healthymed_ssb.group_ssb_prescription_officer
+msgid "Confirm SSB Prescription Receipt"
+msgstr "Original-Rezepteingang bestätigen"
+
+#. module: healthymed_ssb
+#: model:ir.actions.server,name:healthymed_ssb.action_ssb_gate_recover_server
+msgid "SSB: Recover after gate deactivation"
+msgstr "SSB: Wiederherstellung nach Gate-Deaktivierung"
+
+#. module: healthymed_ssb
+#: model:ir.model.fields,field_description:healthymed_ssb.field_product_template__x_is_ssb
+msgid "Consultation Supply (SSB)"
+msgstr "Sprechstundenbedarf (SSB)"
+
+#. module: healthymed_ssb
+#: model:ir.model.fields,field_description:healthymed_ssb.field_product_template__x_pzn
+msgid "PZN"
+msgstr "PZN"
+
+#. module: healthymed_ssb
+#: model:ir.model.fields,field_description:healthymed_ssb.field_res_partner__x_praxis_nr
+msgid "Practice No. (SSB)"
+msgstr "Praxis-Nr. (SSB)"
+
+#. module: healthymed_ssb
+#: model:ir.model.fields,field_description:healthymed_ssb.field_res_partner__x_kv_nummer
+msgid "KV Number"
+msgstr "KV-Nummer"
+
+#. module: healthymed_ssb
+#: model:ir.model.fields,field_description:healthymed_ssb.field_res_company__x_ssb_gate_enabled
+msgid "SSB Prescription Gate Active"
+msgstr "SSB-Rezept-Gate aktiv"
+
+#. module: healthymed_ssb
+#: model:ir.model.fields,field_description:healthymed_ssb.field_res_config_settings__x_ssb_gate_enabled
+msgid "SSB Prescription Fulfillment Gate"
+msgstr "SSB-Rezept-Fulfillment-Gate"
+
+#. module: healthymed_ssb
+#: model:ir.model.fields,field_description:healthymed_ssb.field_sale_order__x_has_ssb
+msgid "Contains SSB Items"
+msgstr "Enthält SSB-Artikel"
+
+#. module: healthymed_ssb
+#: model:ir.model.fields,field_description:healthymed_ssb.field_sale_order__x_ssb_prescription_file
+msgid "Prescription Scan (optional)"
+msgstr "Rezept-Scan (optional)"
+
+#. module: healthymed_ssb
+#: model:ir.model.fields,field_description:healthymed_ssb.field_sale_order__x_ssb_prescription_filename
+msgid "Prescription Filename"
+msgstr "Rezept-Dateiname"
+
+#. module: healthymed_ssb
+#: model:ir.model.fields,field_description:healthymed_ssb.field_sale_order__x_ssb_prescription_received_by
+msgid "Prescription Confirmed By"
+msgstr "Rezept bestätigt von"
+
+#. module: healthymed_ssb
+#: model:ir.model.fields,field_description:healthymed_ssb.field_sale_order__x_ssb_prescription_received_date
+msgid "Prescription Received On"
+msgstr "Rezepteingang am"
+
+#. module: healthymed_ssb
+#: model:ir.model.fields,field_description:healthymed_ssb.field_sale_order__x_ssb_prescription_state
+msgid "SSB Prescription Status"
+msgstr "SSB-Rezeptstatus"
+
+#. module: healthymed_ssb
+#: selection:sale.order,x_ssb_prescription_state:not_required
+msgid "Not required"
+msgstr "Nicht erforderlich"
+
+#. module: healthymed_ssb
+#: selection:sale.order,x_ssb_prescription_state:waiting
+msgid "Waiting for prescription"
+msgstr "Warte auf Rezept"
+
+#. module: healthymed_ssb
+#: selection:sale.order,x_ssb_prescription_state:received
+msgid "Prescription received"
+msgstr "Rezept eingegangen"
+
+#. module: healthymed_ssb
+#: model_terms:ir.ui.view,arch_db:healthymed_ssb.view_order_form_ssb
+msgid "Confirm prescription received"
+msgstr "Rezepteingang bestätigen"
+
+#. module: healthymed_ssb
+#: model_terms:ir.ui.view,arch_db:healthymed_ssb.product_template_search_view_ssb
+msgid "SSB"
+msgstr "SSB"
+
+#. module: healthymed_ssb
+#: model_terms:ir.ui.view,arch_db:healthymed_ssb.res_partner_view_form_ssb
+msgid "SSB"
+msgstr "SSB"
+
+#. module: healthymed_ssb
+#: model_terms:ir.ui.view,arch_db:healthymed_ssb.view_order_form_ssb
+msgid "SSB Prescription"
+msgstr "SSB-Rezeptdaten"
+
+#. module: healthymed_ssb
+#: model_terms:ir.ui.view,arch_db:healthymed_ssb.res_config_settings_view_form_ssb
+msgid "Sprechstundenbedarf (SSB)"
+msgstr "Sprechstundenbedarf (SSB)"
+
+#. module: healthymed_ssb
+#: model_terms:ir.ui.view,arch_db:healthymed_ssb.res_config_settings_view_form_ssb
+msgid "SSB-Rezept-Fulfillment-Gate"
+msgstr "SSB-Rezept-Fulfillment-Gate"
