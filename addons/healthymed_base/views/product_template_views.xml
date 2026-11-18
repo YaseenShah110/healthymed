@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Anchor verified in C:\odoo\odoo19\addons\product\views\product_views.xml:
+  product.product_template_form_view, notebook > page[@name='general_information'].
+-->
+<odoo>
+    <data>
+
+        <record id="product_template_form_view_healthymed" model="ir.ui.view">
+            <field name="name">product.template.form.healthymed.base</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page string="HealthyMed" name="healthymed">
+                        <group>
+                            <field name="x_ean"/>
+                            <field name="x_magento_id"/>
+                            <field name="x_manufacturer"/>
+                            <field name="x_packaging_unit"/>
+                            <field name="x_qty_unit"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

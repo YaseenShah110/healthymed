@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Anchor verified in C:\odoo\odoo19\addons\sale\views\sale_order_views.xml:
+  sale.view_order_form, group[@name='partner_details']/field[@name='partner_shipping_id'].
+-->
+<odoo>
+    <data>
+
+        <record id="view_order_form_healthymed" model="ir.ui.view">
+            <field name="name">sale.order.form.healthymed.base</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                    <field name="x_is_regional_order"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

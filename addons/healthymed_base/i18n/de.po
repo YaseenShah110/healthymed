@@ -1,0 +1,57 @@
+# Translation of healthymed_base
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: de\n"
+
+#. module: healthymed_base
+#: model:ir.model.fields,field_description:healthymed_base.field_product_template__x_ean
+msgid "EAN"
+msgstr "EAN"
+
+#. module: healthymed_base
+#: model:ir.model.fields,field_description:healthymed_base.field_product_template__x_magento_id
+msgid "Magento ID"
+msgstr "Magento ID"
+
+#. module: healthymed_base
+#: model:ir.model.fields,field_description:healthymed_base.field_product_template__x_manufacturer
+msgid "Manufacturer"
+msgstr "Hersteller"
+
+#. module: healthymed_base
+#: model:ir.model.fields,field_description:healthymed_base.field_product_template__x_packaging_unit
+msgid "Packaging Unit"
+msgstr "Verpackungseinheit"
+
+#. module: healthymed_base
+#: model:ir.model.fields,field_description:healthymed_base.field_product_template__x_qty_unit
+msgid "Quantity Unit"
+msgstr "Mengeneinheit"
+
+#. module: healthymed_base
+#: model:ir.model.fields,field_description:healthymed_base.field_res_partner__x_is_regional
+msgid "Regional Customer (Self-Delivery)"
+msgstr "Regionalkunde (Eigenbelieferung)"
+
+#. module: healthymed_base
+#: model:ir.model.fields,field_description:healthymed_base.field_sale_order__x_is_regional_order
+msgid "Regional Self-Delivery Order"
+msgstr "Regionale Eigenbelieferung"
+
+#. module: healthymed_base
+#: model:ir.model.fields,field_description:healthymed_base.field_res_company__x_regional_warehouse_id
+msgid "Warehouse for Self-Delivery"
+msgstr "Lager für Eigenbelieferung"
+
+#. module: healthymed_base
+#: model:ir.model.fields,field_description:healthymed_base.field_res_company__x_supplier_warehouse_id
+msgid "Warehouse for Supplier Handling"
+msgstr "Lager für Lieferantenabwicklung"
+
+#. module: healthymed_base
+#: model_terms:ir.ui.view,arch_db:healthymed_base.product_template_form_view_healthymed
+#: model_terms:ir.ui.view,arch_db:healthymed_base.view_company_form_healthymed
+msgid "HealthyMed"
+msgstr "HealthyMed"

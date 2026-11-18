@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Anchor verified in C:\odoo\odoo19\odoo\addons\base\views\res_partner_views.xml:
+  base.view_partner_form, page[@name='sales_purchases']/group[@name='container_row_2']
+  /group[@name='sale'] - the existing "Sales" group, where the salesperson field
+  (user_id) lives, i.e. where Sales users already look.
+-->
+<odoo>
+    <data>
+
+        <record id="res_partner_view_form_healthymed" model="ir.ui.view">
+            <field name="name">res.partner.form.healthymed.base</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='sale']" position="inside">
+                    <field name="x_is_regional"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
