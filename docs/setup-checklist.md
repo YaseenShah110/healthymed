@@ -200,3 +200,36 @@ per company**, not per warehouse. The picking type is created with
 warehouse needs nothing special for dropshipping to work; the route is
 warehouse-agnostic by design.** Not an open question - this is settled from
 core source, not a guess.
+
+## Task 8: healthymed_rollen - where to see it, manual check (2026-11-18)
+
+1. **Fixed `odoo.conf`'s `addons_path`** to include the `addons\` subfolder
+   (not just the repo root) - this is where `healthymed_rollen` and any
+   future custom module actually live. If you set up a fresh `odoo.conf`
+   from `odoo.conf.example`, it's already correct there.
+2. **Where to see the roles in the UI:** Settings → Users & Companies →
+   Users → open any user → the **HealthyMed-Rolle** section of the Access
+   Rights area shows the four roles (Innendienst, Lager und Versand,
+   Buchhaltung, Geschäftsführung) as one radio-style privilege, same as
+   Sales/Inventory/etc.
+3. **5-minute manual check (do this yourself - I won't create real users
+   or store any password):**
+   - Settings → Users & Companies → Users → New. Create one user per role
+     with fake data (e.g. `test-innendienst@example.com`), pick its
+     HealthyMed-Rolle role, save.
+   - Repeat for all four roles.
+   - Open a **private/incognito browser window**, log in as each test
+     user, and confirm which top-level menus appear (Sales, Inventory,
+     Invoicing, Purchase, Website) - compare against
+     `scripts/checks/roles_check.py`'s table. Note: the **Website** menu
+     will appear for every user regardless of role - it's gated only by
+     the generic "internal user" group, not a Website-specific one (see
+     `docs/decisions.md`).
+   - Delete the four test users afterward, or leave them archived - your
+     call, they're yours to manage since you created them by hand.
+4. **Open mapping decisions** (not yet confirmed against the senior's
+   system): which "Sales: User" level, which Website editor level, which
+   Accounting groups - see `docs/decisions.md`. Check Settings → Technical
+   → Groups there to confirm or correct, then edit
+   `addons\healthymed_rollen\security\healthymed_rollen_groups.xml`
+   (one `implied_ids` list per role) if anything needs to change.
