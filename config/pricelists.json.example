@@ -1,0 +1,19 @@
+[
+  {
+    "key": "example-default",
+    "name": "Example Default",
+    "currency_code": "EUR",
+    "selectable_on_website": false,
+    "rules": [
+      {
+        "applied_on": "3_global",
+        "category_ref": null,
+        "min_quantity": 1,
+        "compute_price": "percentage",
+        "value": 0.0,
+        "date_start": null,
+        "date_end": null
+      }
+    ]
+  }
+]

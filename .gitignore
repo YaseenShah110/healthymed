@@ -14,6 +14,9 @@ config/payment_terms.json
 config/website.json
 config/mail.json
 
+# Real pricelists - use config/pricelists.json.example as template
+config/pricelists.json
+
 # Private/local-only data
 data_private/
 
